@@ -18,7 +18,7 @@ body {
 
 /* Showcase Area (Left/Top) */
 .showcase-area {
-  flex: 1.2;
+  flex: 3;
   background: linear-gradient(45deg, rgba(6, 182, 212, 0.05) 0%, transparent 100%),
     repeating-linear-gradient(transparent 0px, transparent 2px, var(--bg-dark) 3px);
   padding: 40px;
@@ -199,7 +199,7 @@ body {
 
 /* Login Area (Right/Bottom) */
 .login-area {
-  flex: 0.8;
+  flex: 1;
   min-width: 350px;
   max-width: 600px;
   background: var(--bg-panel);
@@ -357,6 +357,17 @@ body {
 
   .login-area.expanded .cta-arrow {
     display: none;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 1024px) {
+  .showcase-area {
+    flex: 3;
+  }
+
+  .login-area {
+    flex: 1;
+    max-width: 420px;
   }
 }
 
