@@ -42,4 +42,16 @@ const adsPlugin = () => {
 
 export default defineConfig({
   plugins: [react(), adsPlugin()],
+  build: {
+    rollupOptions: {
+      input: {
+        index: path.resolve(process.cwd(), "index.html"),
+        login: path.resolve(process.cwd(), "login.html"),
+        alogin: path.resolve(process.cwd(), "alogin.html"),
+        redirect: path.resolve(process.cwd(), "redirect.html"),
+        logout: path.resolve(process.cwd(), "logout.html"),
+        status: path.resolve(process.cwd(), "status.html"),
+      },
+    },
+  },
 })
