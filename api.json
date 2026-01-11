@@ -1,7 +1,0 @@
-{
-  "captive": "$(if logged-in == 'yes')false$(else)true$(endif)",
-  "user-portal-url": "$(link-login-only)",
-  "seconds-remaining": "$(if session-timeout-secs != 0)$(session-timeout-secs)$(endif)",
-  "bytes-remaining": "$(remain-bytes-total)",
-  "can-extend-session": true
-}
