@@ -9,20 +9,25 @@ const pricePackages = [
   { name: "3 HARI", desc: "Maksimal Sebulan.", price: "Rp 10.000" },
 ]
 
-const adSlides = [
-  {
-    src: "/assets/img/ad-1.svg",
-    alt: "Promo streaming tanpa batas",
-  },
-  {
-    src: "/assets/img/ad-2.svg",
-    alt: "WiFi stabil untuk semua aktivitas",
-  },
-  {
-    src: "/assets/img/ad-3.svg",
-    alt: "Paket family dan bisnis",
-  },
-]
+const adImages = Object.values(
+  import.meta.glob("/public/ads/*.{png,jpg,jpeg,svg}", {
+    eager: true,
+    as: "url",
+  })
+)
+
+const adSlides = adImages.map((src) => {
+  const fileName = src.split("/").pop() || ""
+  const label = fileName
+    .replace(/\.[^.]+$/, "")
+    .replace(/[-_]+/g, " ")
+    .trim()
+
+  return {
+    src,
+    alt: label ? `Iklan ${label}` : "Iklan AFRCloud",
+  }
+})
 
 export default function App() {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -71,7 +76,7 @@ export default function App() {
   }, [mikrotikError])
 
   useEffect(() => {
-    if (activeShowcaseTab !== "ads") {
+    if (activeShowcaseTab !== "ads" || adSlides.length === 0) {
       return undefined
     }
 
@@ -80,7 +85,13 @@ export default function App() {
     }, 4500)
 
     return () => clearInterval(interval)
-  }, [activeShowcaseTab])
+  }, [activeShowcaseTab, adSlides.length])
+
+  useEffect(() => {
+    if (activeSlide >= adSlides.length) {
+      setActiveSlide(0)
+    }
+  }, [activeSlide, adSlides.length])
 
   const showToast = (message) => {
     const id = Date.now()
@@ -186,27 +197,38 @@ export default function App() {
             <div className="showcase-panel">
               {activeShowcaseTab === "ads" ? (
                 <div>
-                  <div className="ads-slider">
-                    {adSlides.map((slide, index) => (
-                      <div
-                        key={slide.src}
-                        className={`ads-slide ${activeSlide === index ? "active" : ""}`}
-                      >
-                        <img src={slide.src} alt={slide.alt} loading="lazy" />
+                  {adSlides.length > 0 ? (
+                    <>
+                      <div className="ads-slider">
+                        {adSlides.map((slide, index) => (
+                          <div
+                            key={slide.src}
+                            className={`ads-slide ${activeSlide === index ? "active" : ""}`}
+                          >
+                            <img src={slide.src} alt={slide.alt} loading="lazy" />
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                  <div className="ads-dots">
-                    {adSlides.map((slide, index) => (
-                      <button
-                        key={slide.src}
-                        type="button"
-                        className={`ads-dot ${activeSlide === index ? "active" : ""}`}
-                        onClick={() => setActiveSlide(index)}
-                        aria-label={`Slide ${index + 1}`}
-                      />
-                    ))}
-                  </div>
+                      {adSlides.length > 1 && (
+                        <div className="ads-dots">
+                          {adSlides.map((slide, index) => (
+                            <button
+                              key={slide.src}
+                              type="button"
+                              className={`ads-dot ${activeSlide === index ? "active" : ""}`}
+                              onClick={() => setActiveSlide(index)}
+                              aria-label={`Slide ${index + 1}`}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div style={{ color: "var(--text-muted)" }}>
+                      Belum ada gambar iklan. Tambahkan file di folder
+                      <strong> public/ads</strong>.
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div>
