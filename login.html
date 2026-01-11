@@ -1,162 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="expires" content="-1">
-	<link rel="icon" type="image/png" href="assets/img/favicon.png">    
-    <title>AFR-Cloud.NET > Login</title>
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/login.css">
-</head>
-
-<body>
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="toast-container"></div>
-
-    <div class="split-container">
-        
-        <!-- Showcase Area (Left/Top) -->
-        <div class="showcase-area">
-            <div class="mini-clock">
-                <div class="mc-time" id="jam">00:00</div>
-                <div class="mc-date" id="tanggal">Date</div>
-            </div>
-
-            <div class="showcase-inner">
-                <div class="brand-wrapper">
-                    <h1 class="brand-logo">AFRCloud-NET</h1>
-                    <div class="brand-tagline">Unlimited WiFi</div>
-                </div>
-
-                <div class="section-title">
-                    <span>DAFTAR PAKET</span>
-                    <small style="color: var(--accent)">DAFTAR PAKET</small>
-                </div>
-
-                <!-- Pricing Grid -->
-                <div class="pricing-grid">
-                    <div class="price-card">
-                        <div class="p-info">
-                            <div class="p-name">2 JAM</div>
-                            <div class="p-desc">Speed 3Mbps</div>
-                        </div>
-                        <div class="p-price">Rp 1.000</div>
-                    </div>
-                    <div class="price-card">
-                        <div class="p-info">
-                            <div class="p-name">6 JAM</div>
-                            <div class="p-desc">Speed 3Mbps</div>
-                        </div>
-                        <div class="p-price">Rp 2.000</div>
-                    </div>
-                    <div class="price-card">
-                        <div class="p-info">
-                            <div class="p-name">12 JAM</div>
-                            <div class="p-desc">Speed 3Mbps</div>
-                        </div>
-                        <div class="p-price">Rp 3.000</div>
-                    </div>
-                    <div class="price-card">
-                        <div class="p-info">
-                            <div class="p-name">18 JAM</div>
-                            <div class="p-desc">Speed 3Mbps</div>
-                        </div>
-                        <div class="p-price">Rp 4.000</div>
-                    </div>
-                    <div class="price-card">
-                        <div class="p-info">
-                            <div class="p-name">1 HARI</div>
-                            <div class="p-desc">Hemat Mingguan.</div>
-                        </div>
-                        <div class="p-price">Rp 5.000</div>
-                    </div>
-                    <div class="price-card">
-                        <div class="p-info">
-                            <div class="p-name">3 HARI</div>
-                            <div class="p-desc">Maksimal Sebulan.</div>
-                        </div>
-                        <div class="p-price">Rp 10.000</div>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 30px; font-size: 0.8rem; color: var(--text-muted); opacity: 0.7;">
-                    * Masa aktif berjalan sejak KODE VOUCHER di gunakan<br>
-                    * Gunakan Dengan Sebijak Mungkin
-                </div>
-            </div>
-        </div>
-
-        <!-- Login Area (Right/Bottom) -->
-        <div class="login-area" id="loginSheet">
-            <div class="sheet-handle" id="sheetHandle"></div>
-            
-            <div class="login-header-mobile" id="sheetHeader">
-                <h2 class="login-title">LOGIN AREA</h2>
-                <div class="cta-arrow">Klik Untuk Login ▲</div>
-            </div>
-            
-            <p class="login-subtitle">Silakan masuk menggunakan kode voucher.</p>
-
-            <div class="mode-switch">
-                <div class="switch-item active" id="tabVoucher">VOUCHER</div>
-                <div class="switch-item" id="tabMember">MEMBER</div>
-            </div>
-
-            <!-- Hidden Error Input from Mikrotik -->
-            <input type="hidden" id="mikrotik-error" value="$(error)">
-
-            <!-- Login Form -->
-            <form name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
-                <input type="hidden" name="dst" value="$(link-orig)" />
-                <input type="hidden" name="popup" value="true" />
-
-                <div class="input-group">
-                    <input type="text" name="username" id="userField" class="cyber-input" required autocomplete="off">
-                    <label class="input-label" id="userLabel">Kode Voucher</label>
-                </div>
-
-                <div class="input-group" id="passGroup" style="display: none;">
-                    <input type="password" name="password" id="passField" class="cyber-input">
-                    <label class="input-label">Password</label>
-                </div>
-
-                <button type="submit" class="btn btn-cyber">MASUK SEKARANG</button>
-            </form>
-            
-            $(if trial == 'yes')
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)" style="color: var(--text-muted); font-size: 0.9rem; text-decoration: none; border-bottom: 1px dashed var(--text-muted);">
-                    Coba Gratis (Trial 5 Menit)
-                </a>
-            </div>
-            $(endif)
-        </div>
-    </div>
-
-    <!-- CHAP Login Script (Mikrotik) -->
-    $(if chap-id)
-    <form name="sendin" action="$(link-login-only)" method="post">
-        <input type="hidden" name="username" />
-        <input type="hidden" name="password" />
-        <input type="hidden" name="dst" value="$(link-orig)" />
-        <input type="hidden" name="popup" value="true" />
-    </form>
-    <script type="text/javascript" src="assets/js/md5.min.js"></script>
-    <script type="text/javascript">
-        function doLogin() {
-            document.sendin.username.value = document.login.username.value;
-            document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
-            document.sendin.submit();
-            return false;
-        }
-    </script>
-    $(endif)
-
-    <!-- Main JavaScript -->
-    <script src="assets/js/login.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
+    <title>AFR-Cloud.NET &gt; Login</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/login.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

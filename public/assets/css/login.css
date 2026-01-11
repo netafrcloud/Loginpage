@@ -18,7 +18,7 @@ body {
 
 /* Showcase Area (Left/Top) */
 .showcase-area {
-  flex: 1.2;
+  flex: 3;
   background: linear-gradient(45deg, rgba(6, 182, 212, 0.05) 0%, transparent 100%),
     repeating-linear-gradient(transparent 0px, transparent 2px, var(--bg-dark) 3px);
   padding: 40px;
@@ -69,6 +69,83 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.showcase-tabs {
+  display: flex;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.showcase-tab {
+  padding: 10px 0;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+}
+
+.showcase-tab.active {
+  color: #fff;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: -1px;
+}
+
+.showcase-panel {
+  min-height: 280px;
+}
+
+.ads-slider {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.ads-slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+.ads-slide.active {
+  display: block;
+}
+
+.ads-slide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.ads-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.ads-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 0;
+}
+
+.ads-dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 /* Pricing Grid */
@@ -122,7 +199,7 @@ body {
 
 /* Login Area (Right/Bottom) */
 .login-area {
-  flex: 0.8;
+  flex: 1;
   min-width: 350px;
   max-width: 600px;
   background: var(--bg-panel);
@@ -280,6 +357,17 @@ body {
 
   .login-area.expanded .cta-arrow {
     display: none;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 1024px) {
+  .showcase-area {
+    flex: 3;
+  }
+
+  .login-area {
+    flex: 1;
+    max-width: 420px;
   }
 }
 

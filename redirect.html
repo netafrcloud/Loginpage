@@ -1,60 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <title>Mengarahkan...</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="refresh" content="2; url=$(link-redirect)">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="expires" content="-1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/error.css">
-    
-    <style>
-        body {
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 60%),
-                linear-gradient(0deg, transparent 24%, rgba(30, 41, 59, .3) 25%, rgba(30, 41, 59, .3) 26%, transparent 27%, transparent 74%, rgba(30, 41, 59, .3) 75%, rgba(30, 41, 59, .3) 76%, transparent 77%, transparent), 
-                linear-gradient(90deg, transparent 24%, rgba(30, 41, 59, .3) 25%, rgba(30, 41, 59, .3) 26%, transparent 27%, transparent 74%, rgba(30, 41, 59, .3) 75%, rgba(30, 41, 59, .3) 76%, transparent 77%, transparent);
-            background-size: 100% 100%, 50px 50px, 50px 50px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="redirect-card">
-        <div class="icon-box">
-            <div class="success-icon">✓</div>
-        </div>
-        
-        <h1 class="title">ACCESS GRANTED</h1>
-        <p class="subtitle">Login berhasil. Mengarahkan...</p>
-
-        <div class="loader-track">
-            <div class="loader-bar"></div>
-        </div>
-
-        <a href="$(link-redirect)" class="manual-link">
-            Klik di sini jika tidak otomatis beralih
-        </a>
-    </div>
-
-    <script>
-        function startRedirect() {
-            // Mikrotik popup window (if enabled)
-            $(if popup == 'true')
-                open('$(link-status)', 'hotspot_status', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=290,height=200');
-            $(endif)
-            
-            // Main redirect
-            location.href = unescape('$(link-redirect-esc)');
-        }
-
-        // Delay for animation to complete
-        setTimeout(startRedirect, 1800);
-    </script>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
+    <title>AFR-Cloud.NET &gt; Login</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/login.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/javascript" src="/assets/js/md5.min.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
