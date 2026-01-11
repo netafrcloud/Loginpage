@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react"
+import adImages from "virtual:ads"
 
 const pricePackages = [
   { name: "2 JAM", desc: "Speed 3Mbps", price: "Rp 1.000" },
@@ -8,13 +9,6 @@ const pricePackages = [
   { name: "1 HARI", desc: "Hemat Mingguan.", price: "Rp 5.000" },
   { name: "3 HARI", desc: "Maksimal Sebulan.", price: "Rp 10.000" },
 ]
-
-const adImages = Object.values(
-  import.meta.glob("/public/ads/*.{png,jpg,jpeg,svg}", {
-    eager: true,
-    as: "url",
-  })
-)
 
 const adSlides = adImages.map((src) => {
   const fileName = src.split("/").pop() || ""
